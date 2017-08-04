@@ -9,15 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Address"
-        android:gravity="center" />
-    <!--<TextView-->
-        <!--android:id="@+id/name1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:text="Name"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:gravity="center" />-->
-
+        android:gravity="center"
+        android:text="Address"/>
 
 </RelativeLayout>

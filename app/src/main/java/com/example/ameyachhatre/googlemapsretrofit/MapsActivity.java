@@ -59,12 +59,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-    int flag = 0, flag1 = 0;
-    private ListView m_listview;
-    Bundle extras;
+    int flag = 0;
     FrameLayout frameLayout;
     final static int REQUEST_LOCATION = 199;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         frameLayout.setVisibility(View.INVISIBLE);
     }
 
@@ -148,9 +145,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (frameLayout.getVisibility() == View.INVISIBLE){
+                if (frameLayout.getVisibility() == View.INVISIBLE) {
                     frameLayout.setVisibility(view.VISIBLE);
-                } else{
+                } else {
                     getSupportFragmentManager().beginTransaction().add(R.id.fragment, new DisplayLocActivity()).commit();
                 }
 
@@ -174,7 +171,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     private void enableLoc() {
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -182,9 +178,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                         @Override
                         public void onConnected(Bundle bundle) {
-
                         }
-
                         @Override
                         public void onConnectionSuspended(int i) {
                             mGoogleApiClient.connect();
@@ -194,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onConnectionFailed(ConnectionResult connectionResult) {
 
-                            Log.d("Location error","Location error " + connectionResult.getErrorCode());
+                            Log.d("Location error", "Location error " + connectionResult.getErrorCode());
                         }
                     }).build();
             mGoogleApiClient.connect();
@@ -233,7 +227,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void build_retrofit_and_get_response(String type) {
         String url = "https://maps.googleapis.com/maps/";
-//        String url = "https://maps.googleapis.com/maps/place/textsearch/json?query=BBVA+Compass&location="+latitude+","+longitude+"&radius=10000";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -248,7 +241,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onResponse(Response<Example> response, Retrofit retrofit) {
 
                 try {
-//                    if(flag1 == 0){
                     mMap.clear();
                     // This loop will go through all the results and add marker on each location.
                     for (int i = 0; i < response.body().getResults().size(); i++) {
@@ -268,27 +260,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.bank_icon3));
                         final String formatted_address = response.body().getResults().get(i).getformatted_address();
                         // Adding colour to the marker
-                        //markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                         // move map camera
 
-                        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener()
-                        {
+                        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
-                           Bundle extras = new Bundle();
+                            Bundle extras = new Bundle();
+
                             @Override
                             public void onInfoWindowClick(Marker marker) {
-                                Toast.makeText(MapsActivity.this,"Hello",Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(MapsActivity.this,DisplayInfo.class);
-                                extras.putString("lat",lat.toString());
-                                extras.putString("long",lng.toString());
-                                extras.putString("placename",placeName);
-                                extras.putString("formatted_address",formatted_address);
+                                Toast.makeText(MapsActivity.this, "Hello", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(MapsActivity.this, DisplayInfo.class);
+                                extras.putString("lat", lat.toString());
+                                extras.putString("long", lng.toString());
+                                extras.putString("placename", placeName);
+                                extras.putString("formatted_address", formatted_address);
                                 i.putExtras(extras);
                                 startActivity(i);
                             }
                         });
-//                        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//                        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
                     }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
@@ -355,12 +344,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Adding Marker to the Map
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-        //move map camera
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-//        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-
         Log.d("onLocationChanged", String.format("latitude:%.3f longitude:%.3f", latitude, longitude));
-
         Log.d("onLocationChanged", "Exit");
     }
 
@@ -440,9 +424,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onInfoWindowClick(Marker marker) {
 
     }
-
-    // displa
-//    public void displaybankLocations(View view) {
-//        Intent intent = new Intent(this, DisplayLocActivity.class)
-//    }
 }

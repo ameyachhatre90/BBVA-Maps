@@ -1,4 +1,5 @@
 package com.example.ameyachhatre.googlemapsretrofit;
+
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,25 +20,24 @@ import retrofit.Retrofit;
 
 
 /**
- * Created by Riyaz on 8/1/2017.
+ * Created by Ameya on 8/1/2017.
  */
 
-public class DisplayLocActivity extends Fragment{
+public class DisplayLocActivity extends Fragment {
 
     String[] name = new String[20];
     String[] formatted_address = new String[20];
     RecyclerView recyclerView;
     LocationAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
-    double latitude =39.000089;
+    double latitude = 39.000089;
     double longitude = -76.863842;
     private int PROXIMITY_RADIUS = 10000;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab1,container,false);
-
+        View view = inflater.inflate(R.layout.tab1, container, false);
         return view;
     }
 
@@ -63,7 +63,7 @@ public class DisplayLocActivity extends Fragment{
 
                 try {
 
-                    for (int i = 0; i < response.body().getResults().size(); i++){
+                    for (int i = 0; i < response.body().getResults().size(); i++) {
                         formatted_address[i] = response.body().getResults().get(i).getformatted_address();
                     }
 
@@ -73,12 +73,12 @@ public class DisplayLocActivity extends Fragment{
                     layoutManager = new LinearLayoutManager(getActivity());
                     recyclerView.setLayoutManager(layoutManager);
 
-
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Throwable t) {
                 Log.d("onFailure", t.toString());
@@ -86,6 +86,4 @@ public class DisplayLocActivity extends Fragment{
         });
 
     }
-
-
 }
